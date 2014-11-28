@@ -18,6 +18,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
+import com.sun.prism.GraphicsPipeline.ShaderType;
 
 public class GameDrawer{
 	JFrame frame;
@@ -58,8 +59,16 @@ public class GameDrawer{
 			for (Spinner spinner : board.spinners) {
 				drawSpinner(spinner);
 			}
+			batch.end();
+			sr.setProjectionMatrix(Game.cam.combined);
+			sr.begin(ShapeType.Line);
+			sr.setColor(1,1,0,0.5f);
+			sr.circle(board.escaper.pos.x, board.escaper.pos.y, 26);
+			sr.end();
+			batch.begin();
 			drawEscaper( board.escaper);
 			batch.end();
+			
 		}
 		/*ToDo: ShapeRenderer stuff here.*/
 	}
@@ -84,11 +93,11 @@ public class GameDrawer{
 		}
 	}
 	
+	private static ShapeRenderer sr = new ShapeRenderer();
+	
 	public void drawEscaper( Escaper e ){
-		float offset =  Globals.EXPLORER_SIZE / 2 ;// + 30;
-		escaper.setPosition( (float)e.pos.x - offset,  (float) e.pos.y - offset);
+		escaper.setPosition( (float)e.pos.x - escaper.getWidth()/2,  (float) e.pos.y - escaper.getHeight()/2);
 		escaper.setRotation((float) (e.getFacing() ) );
-		
 		if(e.order_dest != null){
 			rallypoint.setScale(0.125f);
 			rallypoint.setColor(Color.GREEN);

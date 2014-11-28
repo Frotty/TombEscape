@@ -22,7 +22,7 @@ public class Game extends ApplicationAdapter {
 	//SpriteBatch batch;
 	//Texture img;
 	GameDrawer drawer;
-	GameCamera cam;
+	public static GameCamera cam;
 	public static Board activeBoard;
 	private static boolean paused;
 	
